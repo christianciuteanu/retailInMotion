@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/RetailInMotion.OrdersManagement/RetailInMotion.OrderManagement.Core/bin/Debug/net6.0
+/RetailInMotion.OrdersManagement/RetailInMotion.OrderManagement.Core/obj
+/RetailInMotion.OrdersManagement/RetailInMotion.OrderManagement.Infrastructure/obj
+/RetailInMotion.OrdersManagement/RetailInMotion.OrderManagement.Infrastructure/bin/Debug/net6.0
+/RetailInMotion.OrdersManagement/RetailInMotion.OrderManagement.SharedKernel/obj
+/RetailInMotion.OrdersManagement/RetailInMotion.OrderManagement.SharedKernel/bin/Debug/net6.0
+/RetailInMotion.OrdersManagement/RetailInMotion.OrdersManagement.Api/obj
+/RetailInMotion.OrdersManagement/RetailInMotion.OrdersManagement.Api/bin/Debug/net6.0
+/RetailInMotion.OrdersManagement/.vs
