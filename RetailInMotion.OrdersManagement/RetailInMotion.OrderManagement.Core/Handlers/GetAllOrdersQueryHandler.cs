@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using RetailInMotion.OrdersManagement.Core.Aggregates;
-using RetailInMotion.OrdersManagement.Core.Interfaces;
 using RetailInMotion.OrdersManagement.Core.Queries;
+using RetailInMotion.OrdersManagement.Infrastructure.Persistance;
 
 namespace RetailInMotion.OrdersManagement.Core.Handlers
 {
-    public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, IEnumerable<Order>>
+    internal class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, IEnumerable<Order>>
     {
-        private readonly IRepository<Order> _repository;
+        private readonly IOrderRepository _repository;
 
-        public GetAllOrdersQueryHandler(IRepository<Order> repository)
+        public GetAllOrdersQueryHandler(IOrderRepository repository)
         {
             _repository = repository;
         }

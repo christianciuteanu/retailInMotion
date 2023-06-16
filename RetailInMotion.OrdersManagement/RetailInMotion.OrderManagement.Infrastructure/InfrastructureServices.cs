@@ -9,6 +9,7 @@ namespace RetailInMotion.OrdersManagement.Infrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }

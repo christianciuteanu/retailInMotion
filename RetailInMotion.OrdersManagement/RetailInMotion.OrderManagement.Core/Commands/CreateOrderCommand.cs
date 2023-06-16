@@ -1,15 +1,21 @@
 ﻿using MediatR;
-using RetailInMotion.OrdersManagement.Core.Aggregates;
+using RetailInMotion.OrdersManagement.Core.DTOs;
+using RetailInMotion.OrdersManagement.Core.Enums;
 
 namespace RetailInMotion.OrdersManagement.Core.Commands
 {
-    public record CreateOrderCommand : IRequest<Unit>
+    internal record CreateOrderCommand : IRequest<Unit>
     {
-        public Order Order { get; set; }
+        public string DeliveryAddress { get; set; }
+        public IEnumerable<ProductDTO> Products { get; set; }
 
-        public CreateOrderCommand(Order order)
+        public OrderStatus OrderStatus{ get; set; }
+
+        public CreateOrderCommand(string deliveryAddress, IEnumerable<ProductDTO> productDTOs)
         {
-            Order = order;
+            DeliveryAddress = deliveryAddress;
+            Products = productDTOs;
+            OrderStatus = OrderStatus.Pending;
         }
     }
 }

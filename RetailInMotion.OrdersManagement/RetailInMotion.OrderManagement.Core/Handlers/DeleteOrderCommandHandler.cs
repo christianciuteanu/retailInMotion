@@ -1,15 +1,14 @@
 ﻿using MediatR;
-using RetailInMotion.OrdersManagement.Core.Aggregates;
 using RetailInMotion.OrdersManagement.Core.Commands;
-using RetailInMotion.OrdersManagement.Core.Interfaces;
+using RetailInMotion.OrdersManagement.Infrastructure.Persistance;
 
 namespace RetailInMotion.OrdersManagement.Core.Handlers
 {
-    public class DeleteOrderHandler : IRequestHandler<DeleteOrderCommand, Unit>
+    internal class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Unit>
     {
-        private readonly IRepository<Order> _repository;
+        private readonly IOrderRepository _repository;
 
-        public DeleteOrderHandler(IRepository<Order> repository)
+        public DeleteOrderCommandHandler(IOrderRepository repository)
         {
             _repository = repository;
         }

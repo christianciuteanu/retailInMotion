@@ -2,7 +2,7 @@
 
 namespace RetailInMotion.OrdersManagement.Core.Commands
 {
-    public class DeleteOrderCommand : IRequest<Unit>
+    internal record DeleteOrderCommand : IRequest<Unit>
     {
         public Guid Id { get; }
 
