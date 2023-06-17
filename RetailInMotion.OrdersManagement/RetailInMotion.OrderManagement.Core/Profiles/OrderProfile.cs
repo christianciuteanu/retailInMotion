@@ -10,6 +10,7 @@ namespace RetailInMotion.OrdersManagement.Core.Profiles
         {
             CreateMap<OrderDTO, Order>()
                 .ForMember(dest => dest.DeliveryAddress, opt => opt.MapFrom(src => src.DeliveryAddress))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products))
                 .ReverseMap();
         }

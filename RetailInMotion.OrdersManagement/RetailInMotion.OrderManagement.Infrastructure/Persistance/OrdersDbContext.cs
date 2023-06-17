@@ -22,6 +22,10 @@ namespace RetailInMotion.OrdersManagement.Infrastructure.Persistance
 
             modelBuilder.Entity<Product>()
                 .HasKey(o => o.Id);
+            
+            modelBuilder.Entity<Product>()
+                .Property(e => e.Id)
+                .ValueGeneratedNever();
         }
 
         public DbSet<Order> Orders { get; set; }

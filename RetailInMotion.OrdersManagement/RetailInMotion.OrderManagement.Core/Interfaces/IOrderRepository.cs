@@ -6,6 +6,8 @@ namespace RetailInMotion.OrdersManagement.Infrastructure.Persistance
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        Task UpdateOrderProductsAsync(Guid orderId, IEnumerable<Product> products);
+        Task UpdateOrderProductsAsync(Guid orderId, IEnumerable<Product> products, CancellationToken cancellationToken);
+
+        Task CancelAsync(Guid orderId, CancellationToken cancellationToken);
     }
 }

@@ -8,16 +8,24 @@ namespace RetailInMotion.OrdersManagement.Core.Aggregates
     public class Order : BaseEntity<Guid>, IAggregateRoot
     {
         public string DeliveryAddress { get; private set; }
-        
-        // Note - Set should be private
-        public IEnumerable<Product> Products { get; set; }
-        public OrderStatus OrderStatus { get; private set; }
+
+        public ICollection<Product> Products { get; private set; }
+        public OrderStatus Status { get; private set; }
 
         public Order() { }
 
-        public Order(Guid id, string deliveryAddress)
+        public Order(Guid id)
         {
             Id = id;
+        }
+
+        public Order(Guid id, OrderStatus status) : this(id)
+        {
+            Status = status;
+        }
+
+        public Order(Guid id, string deliveryAddress) : this(id)
+        {
             DeliveryAddress = deliveryAddress;
         }
 
@@ -25,14 +33,8 @@ namespace RetailInMotion.OrdersManagement.Core.Aggregates
         {
             Id = Guid.NewGuid();
             DeliveryAddress = deliveryAddress;
-            Products = products;
-            OrderStatus = orderStatus;
-        }
-
-        public Order(Guid id, IEnumerable<Product> products)
-        {
-            Id = id;
-            Products = products;
+            Products = products.ToArray();
+            Status = orderStatus;
         }
     }
 }

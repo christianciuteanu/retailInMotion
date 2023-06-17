@@ -15,7 +15,12 @@ namespace RetailInMotion.OrdersManagement.Core.Handlers
 
         public async Task<Unit> Handle(UpdateOrderDeliveryAddressCommand request, CancellationToken cancellationToken)
         {
-            await _repository.UpdateColumnAsync(request.Order, o => o.DeliveryAddress, request.Order.DeliveryAddress);
+            await _repository.UpdateColumnAsync(
+                request.Order,
+                o => o.DeliveryAddress,
+                request.Order.DeliveryAddress,
+                cancellationToken
+            );
 
             return await Task.FromResult(Unit.Value);
         }

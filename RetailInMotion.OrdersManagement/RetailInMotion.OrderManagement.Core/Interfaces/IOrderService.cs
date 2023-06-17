@@ -5,16 +5,18 @@ namespace RetailInMotion.OrdersManagement.Core.Interfaces
 {
     public interface IOrderService
     {
-        Task CreateAsync(OrderDTO orderDTO);
+        Task CreateAsync(CreateOrderDTO orderDTO, CancellationToken cancellationToken);
 
-        Task<IEnumerable<OrderDTO>> GetAllAsync();
+        Task<IEnumerable<OrderDTO>> GetAllAsync(CancellationToken cancellationToken);
 
-        Task<OrderDTO> GetByIdAsync(Guid orderId);
+        Task<OrderDTO> GetByIdAsync(Guid orderId, CancellationToken cancellationToken);
 
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
 
-        Task UpdateDeliveryAddressAsync(Guid orderId, string deliveryAddress);
+        Task UpdateDeliveryAddressAsync(Guid orderId, string deliveryAddress, CancellationToken cancellationToken);
 
-        Task UpdateProductsAsync(Guid orderId, IEnumerable<ProductDTO> productDTOs);
+        Task UpdateProductsAsync(Guid orderId, IEnumerable<ProductDTO> productDTOs, CancellationToken cancellationToken);
+
+        Task CancelAsync(Guid orderId, CancellationToken cancellationToken);
     }
 }

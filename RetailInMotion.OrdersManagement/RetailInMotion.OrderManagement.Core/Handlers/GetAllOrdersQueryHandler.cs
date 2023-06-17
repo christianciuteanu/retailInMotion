@@ -15,6 +15,6 @@ namespace RetailInMotion.OrdersManagement.Core.Handlers
         }
 
         public async Task<IEnumerable<Order>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
-            => await _repository.GetAllAsync();
+            => await _repository.GetAllAsync(cancellationToken);
     }
 }

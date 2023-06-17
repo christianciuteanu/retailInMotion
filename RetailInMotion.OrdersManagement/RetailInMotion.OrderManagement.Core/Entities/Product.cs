@@ -1,4 +1,5 @@
-﻿using RetailInMotion.OrdersManagement.SharedKernel;
+﻿using RetailInMotion.OrdersManagement.Core.Aggregates;
+using RetailInMotion.OrdersManagement.SharedKernel;
 
 namespace RetailInMotion.OrdersManagement.Core.Entities
 {

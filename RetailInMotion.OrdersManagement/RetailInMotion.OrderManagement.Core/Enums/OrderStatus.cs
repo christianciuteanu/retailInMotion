@@ -1,9 +1,16 @@
-﻿namespace RetailInMotion.OrdersManagement.Core.Enums
+﻿using System.Runtime.Serialization;
+
+namespace RetailInMotion.OrdersManagement.Core.Enums
 {
     public enum OrderStatus
     {
-        Pending = 0, 
+        [EnumMember(Value = "Pending")]
+        Pending,
+
+        [EnumMember(Value = "Confirmed")]
         Confirmed,
+
+        [EnumMember(Value = "Canceled")]
         Canceled
     }
 }

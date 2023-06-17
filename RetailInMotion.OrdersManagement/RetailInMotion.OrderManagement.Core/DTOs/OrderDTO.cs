@@ -1,11 +1,7 @@
-﻿using RetailInMotion.OrdersManagement.Core.DTOs;
-
-namespace RetailInMotion.OrdersManagement.Api.DTOs
+﻿namespace RetailInMotion.OrdersManagement.Api.DTOs
 {
-    public class OrderDTO
+    public class OrderDTO : CreateOrderDTO
     {
         public Guid Id { get; set; }
-        public string DeliveryAddress { get; set; } = default!;
-        public IEnumerable<ProductDTO> Products { get; set; } = default!;
     }
 }

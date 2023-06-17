@@ -25,7 +25,8 @@ namespace RetailInMotion.OrdersManagement.Core.Handlers
                     request.DeliveryAddress,
                     _mapper.Map<IEnumerable<Product>>(request.Products),
                     request.OrderStatus
-                )
+                ),
+                cancellationToken
             );
 
             return await Task.FromResult(Unit.Value);

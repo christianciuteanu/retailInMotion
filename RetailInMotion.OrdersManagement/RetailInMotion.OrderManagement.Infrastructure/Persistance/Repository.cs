@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RetailInMotion.OrdersManagement.Core.Aggregates;
 using RetailInMotion.OrdersManagement.Core.Interfaces;
 using RetailInMotion.OrdersManagement.SharedKernel.Interfaces;
 using System.Linq.Expressions;
@@ -16,39 +15,39 @@ namespace RetailInMotion.OrdersManagement.Infrastructure.Persistance
             Context = new OrdersDbContext();
             _dbSet = Context.Set<T>();
         }
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(T entity, CancellationToken cancellationToken)
         {
-            Context.Orders.Remove(new Order());
+            _dbSet.Remove(entity);
 
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync() =>
-            await _dbSet.ToListAsync();
+        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken) =>
+            await _dbSet.ToListAsync(cancellationToken);
 
-        public async Task<T> GetByIdAsync(Guid id) =>
-            await _dbSet.FindAsync(id).AsTask();
+        public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
+            await _dbSet.FindAsync(id, cancellationToken).AsTask();
 
-        public async Task InsertAsync(T entity)
+        public async Task InsertAsync(T entity, CancellationToken cancellationToken)
         {
-            await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity, cancellationToken);
 
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(T Entity)
+        public async Task UpdateAsync(T Entity, CancellationToken cancellationToken)
         {
             _dbSet.Update(Entity);
 
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task SaveAsync()
+        public async Task SaveAsync(CancellationToken cancellationToken)
         {
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateColumnAsync(T entity, Expression<Func<T, object>> propertyExpression, object value)
+        public async Task UpdateColumnAsync(T entity, Expression<Func<T, object>> propertyExpression, object value, CancellationToken cancellationToken)
         {
             var propName = Repository<T>.GetPropertyName(propertyExpression);
 
@@ -56,7 +55,7 @@ namespace RetailInMotion.OrdersManagement.Infrastructure.Persistance
             Context.Entry(entity).Property(propName).IsModified = true;
             Context.Entry(entity).Property(propName).CurrentValue = value;
 
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
         public IQueryable<T> Include(params Expression<Func<T, object>>[] includProps)

@@ -20,53 +20,70 @@ namespace RetailInMotion.OrderManagement.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<OrderDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get()
-            => Ok(await _orderService.GetAllAsync());
+        public async Task<IActionResult> Get(CancellationToken cancellationToken)
+            => Ok(await _orderService.GetAllAsync(cancellationToken));
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(OrderDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get(Guid id)
-            => Ok(await _orderService.GetByIdAsync(id));
+        public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
+            => Ok(await _orderService.GetByIdAsync(id, cancellationToken));
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post([FromBody] OrderDTO order)
+        public async Task<IActionResult> Post([FromBody] CreateOrderDTO order, CancellationToken cancellationToken)
         {
-            await _orderService.CreateAsync(order);
+            await _orderService.CreateAsync(order, cancellationToken);
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut("{id}/deliveryAddress")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] string deliveryAddress)
+        [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Put(Guid id, [FromBody] string deliveryAddress, CancellationToken cancellationToken)
         {
-            await _orderService.UpdateDeliveryAddressAsync(id, deliveryAddress);
+            await _orderService.UpdateDeliveryAddressAsync(id, deliveryAddress, cancellationToken);
 
-            return Ok($"{nameof(deliveryAddress)} updated successfully!");
+            return NoContent();
         }
 
         [HttpPut("{id}/products")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] IEnumerable<ProductDTO> products)
+        [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Put(Guid id, [FromBody] IEnumerable<ProductDTO> products, CancellationToken cancellationToken)
         {
-            await _orderService.UpdateProductsAsync(id, products);
+            await _orderService.UpdateProductsAsync(id, products, cancellationToken);
 
-            return Ok($"{nameof(products)} updated successfully!");
+            return NoContent();
         }
 
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            await _orderService.DeleteAsync(id);
+            await _orderService.DeleteAsync(id, cancellationToken);
 
-            return Ok();
+            return NoContent();
+        }
+
+        [HttpPut("{id}/cancel")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Put(Guid id, CancellationToken cancellationToken)
+        {
+            await _orderService.CancelAsync(id, cancellationToken);
+
+            return NoContent();
         }
     }
 }
